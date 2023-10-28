@@ -2,18 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://juliapocciotti.github.io/blog/about.html</loc>
-    <lastmod>2023-10-28T20:49:32.684Z</lastmod>
+    <lastmod>2023-10-28T21:29:11.699Z</lastmod>
+  </url>
+  <url>
+    <loc>https://juliapocciotti.github.io/blog/course-notes/index.html</loc>
+    <lastmod>2023-10-28T21:29:11.132Z</lastmod>
   </url>
   <url>
     <loc>https://juliapocciotti.github.io/blog/posts/welcome/index.html</loc>
-    <lastmod>2023-10-28T20:49:32.104Z</lastmod>
+    <lastmod>2023-10-28T21:29:10.567Z</lastmod>
   </url>
   <url>
     <loc>https://juliapocciotti.github.io/blog/posts/post-with-code/index.html</loc>
-    <lastmod>2023-10-28T20:49:31.827Z</lastmod>
+    <lastmod>2023-10-28T21:29:10.291Z</lastmod>
+  </url>
+  <url>
+    <loc>https://juliapocciotti.github.io/blog/course-notes/econometrics-ml/first-lecture/index.html</loc>
+    <lastmod>2023-10-28T21:29:10.829Z</lastmod>
   </url>
   <url>
     <loc>https://juliapocciotti.github.io/blog/index.html</loc>
-    <lastmod>2023-10-28T20:49:32.437Z</lastmod>
+    <lastmod>2023-10-28T21:29:11.451Z</lastmod>
   </url>
 </urlset>

@@ -7,6 +7,13 @@
     "text": "About this blog"
   },
   {
+    "objectID": "course-notes/index.html",
+    "href": "course-notes/index.html",
+    "title": "Course notes",
+    "section": "",
+    "text": "First lecture\n\n\n\n\n\n\n\n\n\n\n\n\nOct 28, 2023\n\n\nJulia Pocciotti\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
     "title": "Welcome To My Blog",
@@ -19,6 +26,13 @@
     "title": "Post With Code",
     "section": "",
     "text": "This is a post with executable code.\n\nprint('Hello')\n\nHello"
+  },
+  {
+    "objectID": "course-notes/econometrics-ml/first-lecture/index.html",
+    "href": "course-notes/econometrics-ml/first-lecture/index.html",
+    "title": "First lecture",
+    "section": "",
+    "text": "Test"
   },
   {
     "objectID": "index.html",
