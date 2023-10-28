@@ -1,0 +1,55 @@
+/* css styles */
+@font-face {
+    font-family: 'Lato';
+    src: url('styles/Lato-Light.ttf') format('truetype');
+    font-weight: normal; /* Este é o estilo 'Regular' */
+    font-style: normal; /* Pode ser 'italic' para itálico, se aplicável */
+}
+
+// scss-docs-start gray-color-variables
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #0b1234 !default;
+
+// scss-docs-start color-variables
+$indigo:  #6610f2 !default;
+$pink:    #d63384 !default;
+$red:     #dc3545 !default;
+$yellow:  #ffc107 !default;
+$teal:    #b0e157 !default;
+$cyan:    #c6e9fe !default;
+
+$blue: #1083ff !default;
+$gray: #4b5053 !default;
+$green: #068b7f !default;
+$purple: #b9c1e8 !default;
+$orange: #f9a785 !default;
+
+/*-- scss:defaults --*/
+// scss-docs-start theme-color-variables
+$primary:       rgb(109, 151, 82) !default;
+$secondary:     $gray-800 !default;
+$success:       $green !default;
+$info:          $purple !default;
+$warning:       $orange !default;
+$danger:        $red !default;
+$light:         $white !default;
+$dark:          $gray !default;
+
+$font-family-sans-serif: "Lato";
+$font-family-base: "Lato";
+
+p {
+    font-family: $font-family-base !important;
+}
+
+$headings-font-family: "Lato";
+$headings-font-weight: 2000;

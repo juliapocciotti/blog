@@ -5,5 +5,11 @@
       "/posts/post-with-code/index.html",
       "/posts/welcome/index.html"
     ]
+  },
+  {
+    "listing": "/course-notes/index.html",
+    "items": [
+      "/course-notes/econometrics-ml/first-lecture/index.html"
+    ]
   }
 ]

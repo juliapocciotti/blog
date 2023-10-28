@@ -7,13 +7,21 @@ website:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com/juliapocciotti
+      - icon: linkedin
+        href: https://www.linkedin.com/in/juliapocciotti/
+  sidebar:
+    style: docked
+    contents: 
+      - index.qmd
+      - course-notes/index.qmd
+    
 format:
   html:
-    theme: minty
-    css: styles.css
+    theme: 
+      - minty
+      - styles/styles.scss
+    
 
 
 

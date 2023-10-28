@@ -1,0 +1,9 @@
+---
+title: "First lecture"
+author: "Julia Pocciotti"
+date: "2023-10-28"
+categories: [news, code, analysis]
+image: "image.jpg"
+---
+
+Test
