@@ -1,15 +1,16 @@
 [
   {
-    "listing": "/index.html",
-    "items": [
-      "/posts/post-with-code/index.html",
-      "/posts/welcome/index.html"
-    ]
-  },
-  {
     "listing": "/course-notes/index.html",
     "items": [
       "/course-notes/econometrics-ml/first-lecture/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/probability-calibration/prob_calibration.html",
+      "/posts/post-with-code/index.html",
+      "/posts/welcome/index.html"
     ]
   }
 ]
