@@ -8,6 +8,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/everyday-pandas/everyday_pandas.html",
       "/posts/probability-calibration/prob_calibration.html"
     ]
   }

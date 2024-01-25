@@ -2,22 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://juliapocciotti.github.io/blog/about.html</loc>
-    <lastmod>2024-01-25T20:35:28.606Z</lastmod>
+    <lastmod>2024-01-25T20:47:33.398Z</lastmod>
   </url>
   <url>
     <loc>https://juliapocciotti.github.io/blog/course-notes/index.html</loc>
-    <lastmod>2024-01-25T20:35:28.063Z</lastmod>
+    <lastmod>2024-01-25T20:47:32.822Z</lastmod>
+  </url>
+  <url>
+    <loc>https://juliapocciotti.github.io/blog/posts/everyday-pandas/everyday_pandas.html</loc>
+    <lastmod>2024-01-25T20:47:32.276Z</lastmod>
   </url>
   <url>
     <loc>https://juliapocciotti.github.io/blog/posts/probability-calibration/prob_calibration.html</loc>
-    <lastmod>2024-01-25T20:35:24.893Z</lastmod>
+    <lastmod>2024-01-25T20:47:29.661Z</lastmod>
   </url>
   <url>
     <loc>https://juliapocciotti.github.io/blog/course-notes/econometrics-ml/first-lecture/index.html</loc>
-    <lastmod>2024-01-25T20:35:27.771Z</lastmod>
+    <lastmod>2024-01-25T20:47:32.522Z</lastmod>
   </url>
   <url>
     <loc>https://juliapocciotti.github.io/blog/index.html</loc>
-    <lastmod>2024-01-25T20:35:28.339Z</lastmod>
+    <lastmod>2024-01-25T20:47:33.137Z</lastmod>
   </url>
 </urlset>
