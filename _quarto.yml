@@ -10,11 +10,6 @@ website:
         href: https://github.com/juliapocciotti
       - icon: linkedin
         href: https://www.linkedin.com/in/juliapocciotti/
-  sidebar:
-    style: docked
-    contents: 
-      - index.qmd
-      - course-notes/index.qmd
     
 format:
   html:
