@@ -1,0 +1,2648 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Julia Pocciotti">
+<meta name="dcterms.date" content="2023-11-01">
+
+<title>Julia Pocciotti - Everyday pandas</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Julia Pocciotti</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/juliapocciotti" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/juliapocciotti/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Everyday pandas</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Julia Pocciotti </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 1, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Pandas is probably the most used python library by any Data Scientist. It is the library that we use it everyday at work and <code>import pandas as pd</code> is usually the first thing we type into a notebook. Even though it’s such a common tool, I feel like I’m always learning about new functions and ways to explore data in pandas that I didn’t know of, specially looking back at how I used it when I first started interning and how I use it now.</p>
+<p>I thought about writing this as a survey on ways to explore data with pandas, with some of the things I learned over the years. Most of it was just things I learned looking at other people’s code and with stackoverflow.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>functions</p>
+<ul>
+<li>query</li>
+<li>qcut</li>
+<li>pivot</li>
+<li>chain functions</li>
+<li>unstack - migration analysis</li>
+<li>assign</li>
+<li>style - never run out of it</li>
+<li>pipe - putting it all together</li>
+</ul>
+<p>For this post, I am going to use a <a href="https://www.kaggle.com/datasets/abecklas/fifa-world-cup">dataset</a> on matches played on World Cups. Here is a sample of the data:</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">datetime</th>
+<th data-quarto-table-cell-role="th">stage</th>
+<th data-quarto-table-cell-role="th">stadium</th>
+<th data-quarto-table-cell-role="th">city</th>
+<th data-quarto-table-cell-role="th">home_team_name</th>
+<th data-quarto-table-cell-role="th">home_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_name</th>
+<th data-quarto-table-cell-role="th">win_conditions</th>
+<th data-quarto-table-cell-role="th">attendance</th>
+<th data-quarto-table-cell-role="th">half-time_home_goals</th>
+<th data-quarto-table-cell-role="th">half-time_away_goals</th>
+<th data-quarto-table-cell-role="th">referee</th>
+<th data-quarto-table-cell-role="th">assistant_1</th>
+<th data-quarto-table-cell-role="th">assistant_2</th>
+<th data-quarto-table-cell-role="th">roundid</th>
+<th data-quarto-table-cell-role="th">matchid</th>
+<th data-quarto-table-cell-role="th">home_team_initials</th>
+<th data-quarto-table-cell-role="th">away_team_initials</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1930</td>
+<td>13 Jul 1930 - 15:00</td>
+<td>Group 1</td>
+<td>Pocitos</td>
+<td>Montevideo</td>
+<td>France</td>
+<td>4.0</td>
+<td>1.0</td>
+<td>Mexico</td>
+<td></td>
+<td>4444.0</td>
+<td>3.0</td>
+<td>0.0</td>
+<td>LOMBARDI Domingo (URU)</td>
+<td>CRISTOPHE Henry (BEL)</td>
+<td>REGO Gilberto (BRA)</td>
+<td>201.0</td>
+<td>1096.0</td>
+<td>FRA</td>
+<td>MEX</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1930</td>
+<td>13 Jul 1930 - 15:00</td>
+<td>Group 4</td>
+<td>Parque Central</td>
+<td>Montevideo</td>
+<td>USA</td>
+<td>3.0</td>
+<td>0.0</td>
+<td>Belgium</td>
+<td></td>
+<td>18346.0</td>
+<td>2.0</td>
+<td>0.0</td>
+<td>MACIAS Jose (ARG)</td>
+<td>MATEUCCI Francisco (URU)</td>
+<td>WARNKEN Alberto (CHI)</td>
+<td>201.0</td>
+<td>1090.0</td>
+<td>USA</td>
+<td>BEL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1930</td>
+<td>14 Jul 1930 - 12:45</td>
+<td>Group 2</td>
+<td>Parque Central</td>
+<td>Montevideo</td>
+<td>Yugoslavia</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>Brazil</td>
+<td></td>
+<td>24059.0</td>
+<td>2.0</td>
+<td>0.0</td>
+<td>TEJADA Anibal (URU)</td>
+<td>VALLARINO Ricardo (URU)</td>
+<td>BALWAY Thomas (FRA)</td>
+<td>201.0</td>
+<td>1093.0</td>
+<td>YUG</td>
+<td>BRA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1930</td>
+<td>14 Jul 1930 - 14:50</td>
+<td>Group 3</td>
+<td>Pocitos</td>
+<td>Montevideo</td>
+<td>Romania</td>
+<td>3.0</td>
+<td>1.0</td>
+<td>Peru</td>
+<td></td>
+<td>2549.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>WARNKEN Alberto (CHI)</td>
+<td>LANGENUS Jean (BEL)</td>
+<td>MATEUCCI Francisco (URU)</td>
+<td>201.0</td>
+<td>1098.0</td>
+<td>ROU</td>
+<td>PER</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1930</td>
+<td>15 Jul 1930 - 16:00</td>
+<td>Group 1</td>
+<td>Parque Central</td>
+<td>Montevideo</td>
+<td>Argentina</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>France</td>
+<td></td>
+<td>23409.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>REGO Gilberto (BRA)</td>
+<td>SAUCEDO Ulises (BOL)</td>
+<td>RADULESCU Constantin (ROU)</td>
+<td>201.0</td>
+<td>1085.0</td>
+<td>ARG</td>
+<td>FRA</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="query" class="level2">
+<h2 class="anchored" data-anchor-id="query"><code>query</code></h2>
+<p><code>query</code> is really just a way to specify how you want to filter the dataset. If you want to select the games played by Brazil as a home team and that Brazil scored 5 goals or more, you can achieve this with the following code:</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only BRA plays as home team and when it scored 5 goals or more </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.query(<span class="st">'home_team_initials == "BRA" &amp; home_team_goals &gt;= 5'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">datetime</th>
+<th data-quarto-table-cell-role="th">stage</th>
+<th data-quarto-table-cell-role="th">stadium</th>
+<th data-quarto-table-cell-role="th">city</th>
+<th data-quarto-table-cell-role="th">home_team_name</th>
+<th data-quarto-table-cell-role="th">home_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_name</th>
+<th data-quarto-table-cell-role="th">win_conditions</th>
+<th data-quarto-table-cell-role="th">attendance</th>
+<th data-quarto-table-cell-role="th">half-time_home_goals</th>
+<th data-quarto-table-cell-role="th">half-time_away_goals</th>
+<th data-quarto-table-cell-role="th">referee</th>
+<th data-quarto-table-cell-role="th">assistant_1</th>
+<th data-quarto-table-cell-role="th">assistant_2</th>
+<th data-quarto-table-cell-role="th">roundid</th>
+<th data-quarto-table-cell-role="th">matchid</th>
+<th data-quarto-table-cell-role="th">home_team_initials</th>
+<th data-quarto-table-cell-role="th">away_team_initials</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">40</td>
+<td>1938</td>
+<td>05 Jun 1938 - 17:30</td>
+<td>First round</td>
+<td>Stade de la Meinau</td>
+<td>Strasbourg</td>
+<td>Brazil</td>
+<td>6.0</td>
+<td>5.0</td>
+<td>Poland</td>
+<td>Brazil win after extra time</td>
+<td>13452.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>EKLIND Ivan (SWE)</td>
+<td>POISSANT Louis (FRA)</td>
+<td>KISSENBERGER Ernest (FRA)</td>
+<td>206.0</td>
+<td>1150.0</td>
+<td>BRA</td>
+<td>POL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">70</td>
+<td>1950</td>
+<td>09 Jul 1950 - 15:00</td>
+<td>Group 6</td>
+<td>Maracan� - Est�dio Jornalista M�rio Filho</td>
+<td>Rio De Janeiro</td>
+<td>Brazil</td>
+<td>7.0</td>
+<td>1.0</td>
+<td>Sweden</td>
+<td></td>
+<td>138886.0</td>
+<td>3.0</td>
+<td>0.0</td>
+<td>ELLIS Arthur (ENG)</td>
+<td>GARCIA Prudencio (USA)</td>
+<td>DE LA SALLE Charles (FRA)</td>
+<td>209.0</td>
+<td>1189.0</td>
+<td>BRA</td>
+<td>SWE</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">71</td>
+<td>1950</td>
+<td>13 Jul 1950 - 15:00</td>
+<td>Group 6</td>
+<td>Maracan� - Est�dio Jornalista M�rio Filho</td>
+<td>Rio De Janeiro</td>
+<td>Brazil</td>
+<td>6.0</td>
+<td>1.0</td>
+<td>Spain</td>
+<td></td>
+<td>152772.0</td>
+<td>3.0</td>
+<td>0.0</td>
+<td>LEAFE Reginald (ENG)</td>
+<td>MITCHELL George (SCO)</td>
+<td>DA COSTA VIEIRA Jose (POR)</td>
+<td>209.0</td>
+<td>1186.0</td>
+<td>BRA</td>
+<td>ESP</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">77</td>
+<td>1954</td>
+<td>16 Jun 1954 - 18:00</td>
+<td>Group 1</td>
+<td>Charmilles</td>
+<td>Geneva</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>0.0</td>
+<td>Mexico</td>
+<td></td>
+<td>13470.0</td>
+<td>4.0</td>
+<td>0.0</td>
+<td>WYSSLING Paul (SUI)</td>
+<td>SCHONHOLZER Ernest (SUI)</td>
+<td>DA COSTA VIEIRA Jose (POR)</td>
+<td>211.0</td>
+<td>1249.0</td>
+<td>BRA</td>
+<td>MEX</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">133</td>
+<td>1958</td>
+<td>24 Jun 1958 - 19:00</td>
+<td>Semi-finals</td>
+<td>Rasunda Stadium</td>
+<td>Solna</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>2.0</td>
+<td>France</td>
+<td></td>
+<td>27100.0</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>GRIFFITHS Benjamin (WAL)</td>
+<td>WYSSLING Paul (SUI)</td>
+<td>LEAFE Reginald (ENG)</td>
+<td>488.0</td>
+<td>1340.0</td>
+<td>BRA</td>
+<td>FRA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">135</td>
+<td>1958</td>
+<td>29 Jun 1958 - 15:00</td>
+<td>Final</td>
+<td>Rasunda Stadium</td>
+<td>Solna</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>2.0</td>
+<td>Sweden</td>
+<td></td>
+<td>49737.0</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>GUIGUE Maurice (FRA)</td>
+<td>DUSCH Albert (GER)</td>
+<td>GARDEAZABAL Juan (ESP)</td>
+<td>3482.0</td>
+<td>1343.0</td>
+<td>BRA</td>
+<td>SWE</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>It is very similar to what we would using <code>loc</code>, and they are essencially the same thing:</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.loc[(df.home_team_initials <span class="op">==</span> <span class="st">"BRA"</span>) <span class="op">&amp;</span> (df.home_team_goals <span class="op">&gt;=</span> <span class="dv">5</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">datetime</th>
+<th data-quarto-table-cell-role="th">stage</th>
+<th data-quarto-table-cell-role="th">stadium</th>
+<th data-quarto-table-cell-role="th">city</th>
+<th data-quarto-table-cell-role="th">home_team_name</th>
+<th data-quarto-table-cell-role="th">home_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_name</th>
+<th data-quarto-table-cell-role="th">win_conditions</th>
+<th data-quarto-table-cell-role="th">attendance</th>
+<th data-quarto-table-cell-role="th">half-time_home_goals</th>
+<th data-quarto-table-cell-role="th">half-time_away_goals</th>
+<th data-quarto-table-cell-role="th">referee</th>
+<th data-quarto-table-cell-role="th">assistant_1</th>
+<th data-quarto-table-cell-role="th">assistant_2</th>
+<th data-quarto-table-cell-role="th">roundid</th>
+<th data-quarto-table-cell-role="th">matchid</th>
+<th data-quarto-table-cell-role="th">home_team_initials</th>
+<th data-quarto-table-cell-role="th">away_team_initials</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">40</td>
+<td>1938</td>
+<td>05 Jun 1938 - 17:30</td>
+<td>First round</td>
+<td>Stade de la Meinau</td>
+<td>Strasbourg</td>
+<td>Brazil</td>
+<td>6.0</td>
+<td>5.0</td>
+<td>Poland</td>
+<td>Brazil win after extra time</td>
+<td>13452.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>EKLIND Ivan (SWE)</td>
+<td>POISSANT Louis (FRA)</td>
+<td>KISSENBERGER Ernest (FRA)</td>
+<td>206.0</td>
+<td>1150.0</td>
+<td>BRA</td>
+<td>POL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">70</td>
+<td>1950</td>
+<td>09 Jul 1950 - 15:00</td>
+<td>Group 6</td>
+<td>Maracan� - Est�dio Jornalista M�rio Filho</td>
+<td>Rio De Janeiro</td>
+<td>Brazil</td>
+<td>7.0</td>
+<td>1.0</td>
+<td>Sweden</td>
+<td></td>
+<td>138886.0</td>
+<td>3.0</td>
+<td>0.0</td>
+<td>ELLIS Arthur (ENG)</td>
+<td>GARCIA Prudencio (USA)</td>
+<td>DE LA SALLE Charles (FRA)</td>
+<td>209.0</td>
+<td>1189.0</td>
+<td>BRA</td>
+<td>SWE</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">71</td>
+<td>1950</td>
+<td>13 Jul 1950 - 15:00</td>
+<td>Group 6</td>
+<td>Maracan� - Est�dio Jornalista M�rio Filho</td>
+<td>Rio De Janeiro</td>
+<td>Brazil</td>
+<td>6.0</td>
+<td>1.0</td>
+<td>Spain</td>
+<td></td>
+<td>152772.0</td>
+<td>3.0</td>
+<td>0.0</td>
+<td>LEAFE Reginald (ENG)</td>
+<td>MITCHELL George (SCO)</td>
+<td>DA COSTA VIEIRA Jose (POR)</td>
+<td>209.0</td>
+<td>1186.0</td>
+<td>BRA</td>
+<td>ESP</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">77</td>
+<td>1954</td>
+<td>16 Jun 1954 - 18:00</td>
+<td>Group 1</td>
+<td>Charmilles</td>
+<td>Geneva</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>0.0</td>
+<td>Mexico</td>
+<td></td>
+<td>13470.0</td>
+<td>4.0</td>
+<td>0.0</td>
+<td>WYSSLING Paul (SUI)</td>
+<td>SCHONHOLZER Ernest (SUI)</td>
+<td>DA COSTA VIEIRA Jose (POR)</td>
+<td>211.0</td>
+<td>1249.0</td>
+<td>BRA</td>
+<td>MEX</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">133</td>
+<td>1958</td>
+<td>24 Jun 1958 - 19:00</td>
+<td>Semi-finals</td>
+<td>Rasunda Stadium</td>
+<td>Solna</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>2.0</td>
+<td>France</td>
+<td></td>
+<td>27100.0</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>GRIFFITHS Benjamin (WAL)</td>
+<td>WYSSLING Paul (SUI)</td>
+<td>LEAFE Reginald (ENG)</td>
+<td>488.0</td>
+<td>1340.0</td>
+<td>BRA</td>
+<td>FRA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">135</td>
+<td>1958</td>
+<td>29 Jun 1958 - 15:00</td>
+<td>Final</td>
+<td>Rasunda Stadium</td>
+<td>Solna</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>2.0</td>
+<td>Sweden</td>
+<td></td>
+<td>49737.0</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>GUIGUE Maurice (FRA)</td>
+<td>DUSCH Albert (GER)</td>
+<td>GARDEAZABAL Juan (ESP)</td>
+<td>3482.0</td>
+<td>1343.0</td>
+<td>BRA</td>
+<td>SWE</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>I feel that mostly the advantages of using <code>query</code> are related to readability and general code organization. I just think is a nicer, and often, a faster way to write your code.</p>
+<p>If we want to reference variables in the environment, we can achieve that with <code>query</code> using <code>@</code> before it, such as in:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>min_goals <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df.query(<span class="st">'home_team_initials == "BRA" &amp; home_team_goals &gt;= @min_goals'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">datetime</th>
+<th data-quarto-table-cell-role="th">stage</th>
+<th data-quarto-table-cell-role="th">stadium</th>
+<th data-quarto-table-cell-role="th">city</th>
+<th data-quarto-table-cell-role="th">home_team_name</th>
+<th data-quarto-table-cell-role="th">home_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_name</th>
+<th data-quarto-table-cell-role="th">win_conditions</th>
+<th data-quarto-table-cell-role="th">attendance</th>
+<th data-quarto-table-cell-role="th">half-time_home_goals</th>
+<th data-quarto-table-cell-role="th">half-time_away_goals</th>
+<th data-quarto-table-cell-role="th">referee</th>
+<th data-quarto-table-cell-role="th">assistant_1</th>
+<th data-quarto-table-cell-role="th">assistant_2</th>
+<th data-quarto-table-cell-role="th">roundid</th>
+<th data-quarto-table-cell-role="th">matchid</th>
+<th data-quarto-table-cell-role="th">home_team_initials</th>
+<th data-quarto-table-cell-role="th">away_team_initials</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">40</td>
+<td>1938</td>
+<td>05 Jun 1938 - 17:30</td>
+<td>First round</td>
+<td>Stade de la Meinau</td>
+<td>Strasbourg</td>
+<td>Brazil</td>
+<td>6.0</td>
+<td>5.0</td>
+<td>Poland</td>
+<td>Brazil win after extra time</td>
+<td>13452.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>EKLIND Ivan (SWE)</td>
+<td>POISSANT Louis (FRA)</td>
+<td>KISSENBERGER Ernest (FRA)</td>
+<td>206.0</td>
+<td>1150.0</td>
+<td>BRA</td>
+<td>POL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">70</td>
+<td>1950</td>
+<td>09 Jul 1950 - 15:00</td>
+<td>Group 6</td>
+<td>Maracan� - Est�dio Jornalista M�rio Filho</td>
+<td>Rio De Janeiro</td>
+<td>Brazil</td>
+<td>7.0</td>
+<td>1.0</td>
+<td>Sweden</td>
+<td></td>
+<td>138886.0</td>
+<td>3.0</td>
+<td>0.0</td>
+<td>ELLIS Arthur (ENG)</td>
+<td>GARCIA Prudencio (USA)</td>
+<td>DE LA SALLE Charles (FRA)</td>
+<td>209.0</td>
+<td>1189.0</td>
+<td>BRA</td>
+<td>SWE</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">71</td>
+<td>1950</td>
+<td>13 Jul 1950 - 15:00</td>
+<td>Group 6</td>
+<td>Maracan� - Est�dio Jornalista M�rio Filho</td>
+<td>Rio De Janeiro</td>
+<td>Brazil</td>
+<td>6.0</td>
+<td>1.0</td>
+<td>Spain</td>
+<td></td>
+<td>152772.0</td>
+<td>3.0</td>
+<td>0.0</td>
+<td>LEAFE Reginald (ENG)</td>
+<td>MITCHELL George (SCO)</td>
+<td>DA COSTA VIEIRA Jose (POR)</td>
+<td>209.0</td>
+<td>1186.0</td>
+<td>BRA</td>
+<td>ESP</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">77</td>
+<td>1954</td>
+<td>16 Jun 1954 - 18:00</td>
+<td>Group 1</td>
+<td>Charmilles</td>
+<td>Geneva</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>0.0</td>
+<td>Mexico</td>
+<td></td>
+<td>13470.0</td>
+<td>4.0</td>
+<td>0.0</td>
+<td>WYSSLING Paul (SUI)</td>
+<td>SCHONHOLZER Ernest (SUI)</td>
+<td>DA COSTA VIEIRA Jose (POR)</td>
+<td>211.0</td>
+<td>1249.0</td>
+<td>BRA</td>
+<td>MEX</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">133</td>
+<td>1958</td>
+<td>24 Jun 1958 - 19:00</td>
+<td>Semi-finals</td>
+<td>Rasunda Stadium</td>
+<td>Solna</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>2.0</td>
+<td>France</td>
+<td></td>
+<td>27100.0</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>GRIFFITHS Benjamin (WAL)</td>
+<td>WYSSLING Paul (SUI)</td>
+<td>LEAFE Reginald (ENG)</td>
+<td>488.0</td>
+<td>1340.0</td>
+<td>BRA</td>
+<td>FRA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">135</td>
+<td>1958</td>
+<td>29 Jun 1958 - 15:00</td>
+<td>Final</td>
+<td>Rasunda Stadium</td>
+<td>Solna</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>2.0</td>
+<td>Sweden</td>
+<td></td>
+<td>49737.0</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>GUIGUE Maurice (FRA)</td>
+<td>DUSCH Albert (GER)</td>
+<td>GARDEAZABAL Juan (ESP)</td>
+<td>3482.0</td>
+<td>1343.0</td>
+<td>BRA</td>
+<td>SWE</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>With <code>query</code>, we can also use the <code>in</code> operator to select only the values within a list:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>teams <span class="op">=</span> [<span class="st">'BRA'</span>, <span class="st">'FRA'</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.query(<span class="st">'home_team_initials in @teams &amp; home_team_goals &gt;= @min_goals'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">datetime</th>
+<th data-quarto-table-cell-role="th">stage</th>
+<th data-quarto-table-cell-role="th">stadium</th>
+<th data-quarto-table-cell-role="th">city</th>
+<th data-quarto-table-cell-role="th">home_team_name</th>
+<th data-quarto-table-cell-role="th">home_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_name</th>
+<th data-quarto-table-cell-role="th">win_conditions</th>
+<th data-quarto-table-cell-role="th">attendance</th>
+<th data-quarto-table-cell-role="th">half-time_home_goals</th>
+<th data-quarto-table-cell-role="th">half-time_away_goals</th>
+<th data-quarto-table-cell-role="th">referee</th>
+<th data-quarto-table-cell-role="th">assistant_1</th>
+<th data-quarto-table-cell-role="th">assistant_2</th>
+<th data-quarto-table-cell-role="th">roundid</th>
+<th data-quarto-table-cell-role="th">matchid</th>
+<th data-quarto-table-cell-role="th">home_team_initials</th>
+<th data-quarto-table-cell-role="th">away_team_initials</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">40</td>
+<td>1938</td>
+<td>05 Jun 1938 - 17:30</td>
+<td>First round</td>
+<td>Stade de la Meinau</td>
+<td>Strasbourg</td>
+<td>Brazil</td>
+<td>6.0</td>
+<td>5.0</td>
+<td>Poland</td>
+<td>Brazil win after extra time</td>
+<td>13452.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>EKLIND Ivan (SWE)</td>
+<td>POISSANT Louis (FRA)</td>
+<td>KISSENBERGER Ernest (FRA)</td>
+<td>206.0</td>
+<td>1150.0</td>
+<td>BRA</td>
+<td>POL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">70</td>
+<td>1950</td>
+<td>09 Jul 1950 - 15:00</td>
+<td>Group 6</td>
+<td>Maracan� - Est�dio Jornalista M�rio Filho</td>
+<td>Rio De Janeiro</td>
+<td>Brazil</td>
+<td>7.0</td>
+<td>1.0</td>
+<td>Sweden</td>
+<td></td>
+<td>138886.0</td>
+<td>3.0</td>
+<td>0.0</td>
+<td>ELLIS Arthur (ENG)</td>
+<td>GARCIA Prudencio (USA)</td>
+<td>DE LA SALLE Charles (FRA)</td>
+<td>209.0</td>
+<td>1189.0</td>
+<td>BRA</td>
+<td>SWE</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">71</td>
+<td>1950</td>
+<td>13 Jul 1950 - 15:00</td>
+<td>Group 6</td>
+<td>Maracan� - Est�dio Jornalista M�rio Filho</td>
+<td>Rio De Janeiro</td>
+<td>Brazil</td>
+<td>6.0</td>
+<td>1.0</td>
+<td>Spain</td>
+<td></td>
+<td>152772.0</td>
+<td>3.0</td>
+<td>0.0</td>
+<td>LEAFE Reginald (ENG)</td>
+<td>MITCHELL George (SCO)</td>
+<td>DA COSTA VIEIRA Jose (POR)</td>
+<td>209.0</td>
+<td>1186.0</td>
+<td>BRA</td>
+<td>ESP</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">77</td>
+<td>1954</td>
+<td>16 Jun 1954 - 18:00</td>
+<td>Group 1</td>
+<td>Charmilles</td>
+<td>Geneva</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>0.0</td>
+<td>Mexico</td>
+<td></td>
+<td>13470.0</td>
+<td>4.0</td>
+<td>0.0</td>
+<td>WYSSLING Paul (SUI)</td>
+<td>SCHONHOLZER Ernest (SUI)</td>
+<td>DA COSTA VIEIRA Jose (POR)</td>
+<td>211.0</td>
+<td>1249.0</td>
+<td>BRA</td>
+<td>MEX</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">105</td>
+<td>1958</td>
+<td>08 Jun 1958 - 19:00</td>
+<td>Group 2</td>
+<td>Idrottsparken</td>
+<td>Norrk�Ping</td>
+<td>France</td>
+<td>7.0</td>
+<td>3.0</td>
+<td>Paraguay</td>
+<td></td>
+<td>16518.0</td>
+<td>2.0</td>
+<td>2.0</td>
+<td>GARDEAZABAL Juan (ESP)</td>
+<td>GRIFFITHS Benjamin (WAL)</td>
+<td>BROZZI Juan (ARG)</td>
+<td>220.0</td>
+<td>1386.0</td>
+<td>FRA</td>
+<td>PAR</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">133</td>
+<td>1958</td>
+<td>24 Jun 1958 - 19:00</td>
+<td>Semi-finals</td>
+<td>Rasunda Stadium</td>
+<td>Solna</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>2.0</td>
+<td>France</td>
+<td></td>
+<td>27100.0</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>GRIFFITHS Benjamin (WAL)</td>
+<td>WYSSLING Paul (SUI)</td>
+<td>LEAFE Reginald (ENG)</td>
+<td>488.0</td>
+<td>1340.0</td>
+<td>BRA</td>
+<td>FRA</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">134</td>
+<td>1958</td>
+<td>28 Jun 1958 - 17:00</td>
+<td>Match for third place</td>
+<td>Nya Ullevi</td>
+<td>Gothenburg</td>
+<td>France</td>
+<td>6.0</td>
+<td>3.0</td>
+<td>Germany FR</td>
+<td></td>
+<td>32483.0</td>
+<td>3.0</td>
+<td>1.0</td>
+<td>BROZZI Juan (ARG)</td>
+<td>ELLIS Arthur (ENG)</td>
+<td>LUNDELL Bengt (SWE)</td>
+<td>3483.0</td>
+<td>1382.0</td>
+<td>FRA</td>
+<td>FRG</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">135</td>
+<td>1958</td>
+<td>29 Jun 1958 - 15:00</td>
+<td>Final</td>
+<td>Rasunda Stadium</td>
+<td>Solna</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>2.0</td>
+<td>Sweden</td>
+<td></td>
+<td>49737.0</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>GUIGUE Maurice (FRA)</td>
+<td>DUSCH Albert (GER)</td>
+<td>GARDEAZABAL Juan (ESP)</td>
+<td>3482.0</td>
+<td>1343.0</td>
+<td>BRA</td>
+<td>SWE</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="assign" class="level2">
+<h2 class="anchored" data-anchor-id="assign"><code>assign</code></h2>
+<p>Here is what we can find about the <code>assign</code> function on the pandas documentation:</p>
+<p><code>Returns a new object with all original columns in addition to new ones. Existing columns that are re-assigned will be overwritten.</code></p>
+<p>So <code>assign</code> is literally just a different way to <em>assign</em> new columns to our dataframe, but really the great thing is that we can create multiple columns at once, in which a new column can also depend on one that was just created.</p>
+<p>Let’s use as an example a case where we want to query the matches called a “big goal match”. This type of match represents the games in which the total number of goals were bigger than 6. One way to go about that is to create a new column <code>total_goals</code> that sums the goals scored by the home team and the away team, and create a new column <code>big_goals_match</code> that can be either 0 or 1 to flag if the game was considered a “big goal match”.</p>
+<p>Here is how we can perform this with <code>assign</code>:</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>goals_matches <span class="op">=</span> df.assign(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                    total_goals     <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">'home_team_goals'</span>] <span class="op">+</span> d[<span class="st">'away_team_goals'</span>], </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                    big_goals_match <span class="op">=</span> <span class="kw">lambda</span> d: (d[<span class="st">'total_goals'</span>] <span class="op">&gt;</span> <span class="dv">5</span>).astype(<span class="st">'int'</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                )[[<span class="st">'home_team_initials'</span>, <span class="st">'away_team_initials'</span>, <span class="st">'home_team_goals'</span>, <span class="st">'away_team_goals'</span>, <span class="st">'total_goals'</span>, <span class="st">'big_goals_match'</span>]]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>goals_matches.query(<span class="st">'big_goals_match == 1'</span>).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">home_team_initials</th>
+<th data-quarto-table-cell-role="th">away_team_initials</th>
+<th data-quarto-table-cell-role="th">home_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_goals</th>
+<th data-quarto-table-cell-role="th">total_goals</th>
+<th data-quarto-table-cell-role="th">big_goals_match</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>ARG</td>
+<td>MEX</td>
+<td>6.0</td>
+<td>3.0</td>
+<td>9.0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>ARG</td>
+<td>USA</td>
+<td>6.0</td>
+<td>1.0</td>
+<td>7.0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>URU</td>
+<td>YUG</td>
+<td>6.0</td>
+<td>1.0</td>
+<td>7.0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>URU</td>
+<td>ARG</td>
+<td>4.0</td>
+<td>2.0</td>
+<td>6.0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">19</td>
+<td>HUN</td>
+<td>EGY</td>
+<td>4.0</td>
+<td>2.0</td>
+<td>6.0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="what-if-we-wanted-to-get-the-top-10-matches-that-are-a-big-goal-match-with-the-smallest-difference-between-the-home-and-away-team" class="level5">
+<h5 class="anchored" data-anchor-id="what-if-we-wanted-to-get-the-top-10-matches-that-are-a-big-goal-match-with-the-smallest-difference-between-the-home-and-away-team">What if we wanted to get the top 10 matches that are a “big goal match” with the smallest difference between the home and away team?</h5>
+<p>Before going straight to the code, one thing I learned in pandas was to organize my code within the parenthesis so that we can escape lines when adding new methods to the existing dataframe. In a code like this, you know very easily what is being computed at each step. It’s easier to read, and in case you want to test something new, you can simply comment or uncomment an existing line:</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(df.assign( </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add new columns to existing dataframe </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        total_goals <span class="op">=</span>     <span class="kw">lambda</span> d: d[<span class="st">'home_team_goals'</span>] <span class="op">+</span> d[<span class="st">'away_team_goals'</span>], </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        big_goals_match <span class="op">=</span> <span class="kw">lambda</span> d: (d[<span class="st">'total_goals'</span>] <span class="op">&gt;</span> <span class="dv">5</span>).astype(<span class="st">'int'</span>), </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        goal_diff <span class="op">=</span>       <span class="kw">lambda</span> d: <span class="bu">abs</span>(d[<span class="st">'home_team_goals'</span>] <span class="op">-</span> d[<span class="st">'away_team_goals'</span>])</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Select only the big goals match </span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">'big_goals_match == 1'</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sort values by goal_diff</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'goal_diff'</span>, ascending <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select the first 10 lines</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">10</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Reset index so it numbers the data from 0 to 9</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pick important columns for display</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    [[<span class="st">'home_team_initials'</span>, <span class="st">'away_team_initials'</span>, <span class="st">'home_team_goals'</span>, <span class="st">'away_team_goals'</span>, <span class="st">'total_goals'</span>, <span class="st">'big_goals_match'</span>, <span class="st">'goal_diff'</span>]]</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">home_team_initials</th>
+<th data-quarto-table-cell-role="th">away_team_initials</th>
+<th data-quarto-table-cell-role="th">home_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_goals</th>
+<th data-quarto-table-cell-role="th">total_goals</th>
+<th data-quarto-table-cell-role="th">big_goals_match</th>
+<th data-quarto-table-cell-role="th">goal_diff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>URS</td>
+<td>COL</td>
+<td>4.0</td>
+<td>4.0</td>
+<td>8.0</td>
+<td>1</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>ENG</td>
+<td>BEL</td>
+<td>4.0</td>
+<td>4.0</td>
+<td>8.0</td>
+<td>1</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>FRG</td>
+<td>FRA</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>6.0</td>
+<td>1</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>PAR</td>
+<td>YUG</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>6.0</td>
+<td>1</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>SEN</td>
+<td>URU</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>6.0</td>
+<td>1</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>CUB</td>
+<td>ROU</td>
+<td>3.0</td>
+<td>3.0</td>
+<td>6.0</td>
+<td>1</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>BRA</td>
+<td>POL</td>
+<td>6.0</td>
+<td>5.0</td>
+<td>11.0</td>
+<td>1</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>URS</td>
+<td>BEL</td>
+<td>3.0</td>
+<td>4.0</td>
+<td>7.0</td>
+<td>1</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>ITA</td>
+<td>FRG</td>
+<td>4.0</td>
+<td>3.0</td>
+<td>7.0</td>
+<td>1</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>URU</td>
+<td>ENG</td>
+<td>4.0</td>
+<td>2.0</td>
+<td>6.0</td>
+<td>1</td>
+<td>2.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="cut-and-qcut" class="level2">
+<h2 class="anchored" data-anchor-id="cut-and-qcut"><code>cut</code> and <code>qcut</code></h2>
+<p>Very often when we run some type of analysis, it’s interesting to see how the data is distributed acording to a certain variable. A nice way to do this is to simply add bins to the data, and pandas makes it very easy to do that with <code>cut</code> and <code>qcut</code>. The difference between them is that <code>cut</code> let’s you specify the exact bin edges that you want to cut the data, and <code>qcut</code> uses the quantiles to do that. I personally use <code>qcut</code> way more often, since it already splits the data in equal size bins.</p>
+<p>Let’s try to answer the following question: <strong>“Are the matches in the top 10% attendance of all time made only by the final stages in the World Cup?”</strong></p>
+<p>To answer this, let’s first create the bins with <code>qcut</code>. In order to understand what is the top 10% in attendence, we need to split the data in 10 equally sized parts, here is how we can do that:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>labels_bins <span class="op">=</span> [<span class="ss">f'p</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">10</span>)]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (df.assign(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        bins_attendance <span class="op">=</span> <span class="kw">lambda</span> d: pd.qcut(d[<span class="st">'attendance'</span>], q <span class="op">=</span> <span class="dv">10</span>, labels <span class="op">=</span> labels_bins)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the distribution for each bin</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>df.bins_attendance.value_counts(normalize <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>p60    0.101796
+p0     0.100599
+p20    0.100599
+p40    0.100599
+p90    0.100599
+p10    0.099401
+p30    0.099401
+p50    0.099401
+p80    0.099401
+p70    0.098204
+Name: bins_attendance, dtype: float64</code></pre>
+</div>
+</div>
+<p>As expected, each bin has around 10% of the data</p>
+<p>Now, answering the question:</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>highest_attendence <span class="op">=</span> (df.groupby([<span class="st">'stage'</span>])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                        [<span class="st">'bins_attendance'</span>]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                        .value_counts()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                        .reset_index(name <span class="op">=</span> <span class="st">'counts'</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                        .query(<span class="st">'bins_attendance == "p90" &amp; counts &gt; 0'</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                        .sort_values(<span class="st">'counts'</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                        .reset_index(drop <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>highest_attendence</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">stage</th>
+<th data-quarto-table-cell-role="th">bins_attendance</th>
+<th data-quarto-table-cell-role="th">counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Group 1</td>
+<td>p90</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Group B</td>
+<td>p90</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Final</td>
+<td>p90</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Semi-finals</td>
+<td>p90</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Group A</td>
+<td>p90</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Round of 16</td>
+<td>p90</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Quarter-finals</td>
+<td>p90</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Group 2</td>
+<td>p90</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>Group E</td>
+<td>p90</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>Match for third place</td>
+<td>p90</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>Group 6</td>
+<td>p90</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>Group F</td>
+<td>p90</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>Group G</td>
+<td>p90</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>Group D</td>
+<td>p90</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>Group 3</td>
+<td>p90</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>Group C</td>
+<td>p90</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>Group H</td>
+<td>p90</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>As we can see, the top 10% in attendence is made by lots of different World Cup stages, including the first ones.</p>
+</section>
+<section id="pivot-table" class="level2">
+<h2 class="anchored" data-anchor-id="pivot-table">Pivot table</h2>
+<p>Pivot table is a <em>very</em> common transformation. If you know excel, you’re probably already familiar with it and use it a lot as well. This method is very useful when we want to check how two variables (or more) affect another one with a custom statistic. Sounds a bit confusing, so let’s illustrate that with this question:</p>
+<ul>
+<li>How many goals each stage had on average in the last 3 world cups?</li>
+</ul>
+<p>So what we want would be a dataframe that had columns as the years (indicading the last 3 world cups), the index as the stages, and the values as the mean goals scored in each stage/year. There are different ways to construct this, but <code>pivot_table</code> really makes it easy, here’s how to do that:</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add column with the total number of goals scored </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.assign(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    total_goals <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">'home_team_goals'</span>] <span class="op">+</span> d[<span class="st">'away_team_goals'</span>]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Build pivot table</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>df_avg_goals <span class="op">=</span> (pd.pivot_table(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                        df.query(<span class="st">'year &gt;= 2006'</span>), </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                        columns <span class="op">=</span> <span class="st">'year'</span>, </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                        index   <span class="op">=</span> <span class="st">'stage'</span>, </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                        values  <span class="op">=</span> <span class="st">'total_goals'</span>, </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                        aggfunc <span class="op">=</span> <span class="st">'mean'</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>                    ).<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>df_avg_goals</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">2006</th>
+<th data-quarto-table-cell-role="th">2010</th>
+<th data-quarto-table-cell-role="th">2014</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">stage</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Final</td>
+<td>2.00</td>
+<td>1.00</td>
+<td>1.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Group A</td>
+<td>3.00</td>
+<td>1.83</td>
+<td>3.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Group B</td>
+<td>1.67</td>
+<td>2.83</td>
+<td>3.67</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Group C</td>
+<td>3.00</td>
+<td>1.50</td>
+<td>2.83</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Group D</td>
+<td>2.00</td>
+<td>2.00</td>
+<td>2.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Group E</td>
+<td>2.33</td>
+<td>2.33</td>
+<td>3.17</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Group F</td>
+<td>2.67</td>
+<td>2.17</td>
+<td>2.33</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Group G</td>
+<td>1.83</td>
+<td>2.83</td>
+<td>3.17</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Group H</td>
+<td>3.00</td>
+<td>1.33</td>
+<td>2.50</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Match for third place</td>
+<td>NaN</td>
+<td>5.00</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Play-off for third place</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>3.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Quarter-finals</td>
+<td>1.50</td>
+<td>2.50</td>
+<td>1.25</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Round of 16</td>
+<td>1.88</td>
+<td>2.75</td>
+<td>2.14</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Semi-finals</td>
+<td>1.50</td>
+<td>3.00</td>
+<td>4.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Third place</td>
+<td>4.00</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="style---never-run-out-of-it" class="level3">
+<h3 class="anchored" data-anchor-id="style---never-run-out-of-it"><code>style</code> - never run out of it!</h3>
+<p>It’s hard to collect insights looking at the last table quickly. With <code>style</code> we can set different ways to color our dataframe. To simply create a color scale, we can use the method <code>background_gradient</code>:</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(df_avg_goals</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    .style</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">format</span>(na_rep<span class="op">=</span><span class="st">''</span>, precision<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    .background_gradient()</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<style type="text/css">
+#T_01c34_row0_col0, #T_01c34_row4_col0 {
+  background-color: #dbdaeb;
+  color: #000000;
+}
+#T_01c34_row0_col1, #T_01c34_row0_col2, #T_01c34_row11_col0, #T_01c34_row13_col0 {
+  background-color: #fff7fb;
+  color: #000000;
+}
+#T_01c34_row1_col0, #T_01c34_row3_col0, #T_01c34_row8_col0 {
+  background-color: #4295c3;
+  color: #f1f1f1;
+}
+#T_01c34_row1_col1 {
+  background-color: #d9d8ea;
+  color: #000000;
+}
+#T_01c34_row1_col2, #T_01c34_row10_col2 {
+  background-color: #2685bb;
+  color: #f1f1f1;
+}
+#T_01c34_row2_col0 {
+  background-color: #f5eef6;
+  color: #000000;
+}
+#T_01c34_row2_col1, #T_01c34_row7_col1 {
+  background-color: #84b0d3;
+  color: #f1f1f1;
+}
+#T_01c34_row2_col2 {
+  background-color: #045687;
+  color: #f1f1f1;
+}
+#T_01c34_row3_col1 {
+  background-color: #ece7f2;
+  color: #000000;
+}
+#T_01c34_row3_col2 {
+  background-color: #3d93c2;
+  color: #f1f1f1;
+}
+#T_01c34_row4_col1 {
+  background-color: #d0d1e6;
+  color: #000000;
+}
+#T_01c34_row4_col2, #T_01c34_row5_col1 {
+  background-color: #b4c4df;
+  color: #000000;
+}
+#T_01c34_row5_col0 {
+  background-color: #b5c4df;
+  color: #000000;
+}
+#T_01c34_row5_col2, #T_01c34_row7_col2 {
+  background-color: #0f76b3;
+  color: #f1f1f1;
+}
+#T_01c34_row6_col0 {
+  background-color: #81aed2;
+  color: #f1f1f1;
+}
+#T_01c34_row6_col1 {
+  background-color: #c2cbe2;
+  color: #000000;
+}
+#T_01c34_row6_col2 {
+  background-color: #8bb2d4;
+  color: #000000;
+}
+#T_01c34_row7_col0 {
+  background-color: #ebe6f2;
+  color: #000000;
+}
+#T_01c34_row8_col1, #T_01c34_row11_col2 {
+  background-color: #f2ecf5;
+  color: #000000;
+}
+#T_01c34_row8_col2, #T_01c34_row13_col1 {
+  background-color: #73a9cf;
+  color: #f1f1f1;
+}
+#T_01c34_row9_col0, #T_01c34_row9_col2, #T_01c34_row10_col0, #T_01c34_row10_col1, #T_01c34_row14_col1, #T_01c34_row14_col2 {
+  background-color: #000000;
+  color: #f1f1f1;
+}
+#T_01c34_row9_col1, #T_01c34_row13_col2, #T_01c34_row14_col0 {
+  background-color: #023858;
+  color: #f1f1f1;
+}
+#T_01c34_row11_col1 {
+  background-color: #a5bddb;
+  color: #000000;
+}
+#T_01c34_row12_col0 {
+  background-color: #e7e3f0;
+  color: #000000;
+}
+#T_01c34_row12_col1 {
+  background-color: #8cb3d5;
+  color: #000000;
+}
+#T_01c34_row12_col2 {
+  background-color: #a4bcda;
+  color: #000000;
+}
+</style>
+
+<table id="T_01c34" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="index_name level0" data-quarto-table-cell-role="th">year</th>
+<th id="T_01c34_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">2006</th>
+<th id="T_01c34_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">2010</th>
+<th id="T_01c34_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">2014</th>
+</tr>
+<tr class="odd">
+<th class="index_name level0" data-quarto-table-cell-role="th">stage</th>
+<th class="blank col0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col1" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col2" data-quarto-table-cell-role="th">&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_01c34_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Final</td>
+<td id="T_01c34_row0_col0" class="data row0 col0">2.00</td>
+<td id="T_01c34_row0_col1" class="data row0 col1">1.00</td>
+<td id="T_01c34_row0_col2" class="data row0 col2">1.00</td>
+</tr>
+<tr class="even">
+<td id="T_01c34_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Group A</td>
+<td id="T_01c34_row1_col0" class="data row1 col0">3.00</td>
+<td id="T_01c34_row1_col1" class="data row1 col1">1.83</td>
+<td id="T_01c34_row1_col2" class="data row1 col2">3.00</td>
+</tr>
+<tr class="odd">
+<td id="T_01c34_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Group B</td>
+<td id="T_01c34_row2_col0" class="data row2 col0">1.67</td>
+<td id="T_01c34_row2_col1" class="data row2 col1">2.83</td>
+<td id="T_01c34_row2_col2" class="data row2 col2">3.67</td>
+</tr>
+<tr class="even">
+<td id="T_01c34_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Group C</td>
+<td id="T_01c34_row3_col0" class="data row3 col0">3.00</td>
+<td id="T_01c34_row3_col1" class="data row3 col1">1.50</td>
+<td id="T_01c34_row3_col2" class="data row3 col2">2.83</td>
+</tr>
+<tr class="odd">
+<td id="T_01c34_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Group D</td>
+<td id="T_01c34_row4_col0" class="data row4 col0">2.00</td>
+<td id="T_01c34_row4_col1" class="data row4 col1">2.00</td>
+<td id="T_01c34_row4_col2" class="data row4 col2">2.00</td>
+</tr>
+<tr class="even">
+<td id="T_01c34_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">Group E</td>
+<td id="T_01c34_row5_col0" class="data row5 col0">2.33</td>
+<td id="T_01c34_row5_col1" class="data row5 col1">2.33</td>
+<td id="T_01c34_row5_col2" class="data row5 col2">3.17</td>
+</tr>
+<tr class="odd">
+<td id="T_01c34_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">Group F</td>
+<td id="T_01c34_row6_col0" class="data row6 col0">2.67</td>
+<td id="T_01c34_row6_col1" class="data row6 col1">2.17</td>
+<td id="T_01c34_row6_col2" class="data row6 col2">2.33</td>
+</tr>
+<tr class="even">
+<td id="T_01c34_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">Group G</td>
+<td id="T_01c34_row7_col0" class="data row7 col0">1.83</td>
+<td id="T_01c34_row7_col1" class="data row7 col1">2.83</td>
+<td id="T_01c34_row7_col2" class="data row7 col2">3.17</td>
+</tr>
+<tr class="odd">
+<td id="T_01c34_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">Group H</td>
+<td id="T_01c34_row8_col0" class="data row8 col0">3.00</td>
+<td id="T_01c34_row8_col1" class="data row8 col1">1.33</td>
+<td id="T_01c34_row8_col2" class="data row8 col2">2.50</td>
+</tr>
+<tr class="even">
+<td id="T_01c34_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">Match for third place</td>
+<td id="T_01c34_row9_col0" class="data row9 col0"></td>
+<td id="T_01c34_row9_col1" class="data row9 col1">5.00</td>
+<td id="T_01c34_row9_col2" class="data row9 col2"></td>
+</tr>
+<tr class="odd">
+<td id="T_01c34_level0_row10" class="row_heading level0 row10" data-quarto-table-cell-role="th">Play-off for third place</td>
+<td id="T_01c34_row10_col0" class="data row10 col0"></td>
+<td id="T_01c34_row10_col1" class="data row10 col1"></td>
+<td id="T_01c34_row10_col2" class="data row10 col2">3.00</td>
+</tr>
+<tr class="even">
+<td id="T_01c34_level0_row11" class="row_heading level0 row11" data-quarto-table-cell-role="th">Quarter-finals</td>
+<td id="T_01c34_row11_col0" class="data row11 col0">1.50</td>
+<td id="T_01c34_row11_col1" class="data row11 col1">2.50</td>
+<td id="T_01c34_row11_col2" class="data row11 col2">1.25</td>
+</tr>
+<tr class="odd">
+<td id="T_01c34_level0_row12" class="row_heading level0 row12" data-quarto-table-cell-role="th">Round of 16</td>
+<td id="T_01c34_row12_col0" class="data row12 col0">1.88</td>
+<td id="T_01c34_row12_col1" class="data row12 col1">2.75</td>
+<td id="T_01c34_row12_col2" class="data row12 col2">2.14</td>
+</tr>
+<tr class="even">
+<td id="T_01c34_level0_row13" class="row_heading level0 row13" data-quarto-table-cell-role="th">Semi-finals</td>
+<td id="T_01c34_row13_col0" class="data row13 col0">1.50</td>
+<td id="T_01c34_row13_col1" class="data row13 col1">3.00</td>
+<td id="T_01c34_row13_col2" class="data row13 col2">4.00</td>
+</tr>
+<tr class="odd">
+<td id="T_01c34_level0_row14" class="row_heading level0 row14" data-quarto-table-cell-role="th">Third place</td>
+<td id="T_01c34_row14_col0" class="data row14 col0">4.00</td>
+<td id="T_01c34_row14_col1" class="data row14 col1"></td>
+<td id="T_01c34_row14_col2" class="data row14 col2"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Much better!</p>
+<p>The Style object from pandas has a lot of different ways to customize a dataframe. The <code>background_gradient</code> method already satisfies most of my needs for styling, but if you want to check more options, the <a href="https://pandas.pydata.org/docs/user_guide/style.html">documentation</a> has a lot of great examples.</p>
+</section>
+</section>
+<section id="pipe---putting-it-all-together" class="level2">
+<h2 class="anchored" data-anchor-id="pipe---putting-it-all-together"><code>pipe</code> - putting it all together!</h2>
+<p>I first learned about this method with <a href="https://calmcode.io/pandas-pipe/introduction.html">calmcode.io</a>. There is a series of very nice videos that I definitely recommend checking out!</p>
+<p>With pipe, we can create several of different functions to process our dataset. The idea is that each function should be responsible for one step of the dataset processing. For example, it’s very common to fix the data types, then add some new variables to the data, perform some type of scaling, etc. So, instead of doing something like this:</p>
+<pre class="{python}"><code>df1 = df.astype(type_schema)
+
+df2 = df1.copy()
+df2['total_goals'] = df2['home_team_goals'] + df2['away_team_goals']
+
+df3 = df2.copy()
+data_scaled = scaler.fit_transform(df3[feature_list])</code></pre>
+<p>We can do something like this:</p>
+<pre class="{python}"><code>def fix_dtypes(dataf, type_schema): 
+    return dataf.astype(type_schema)
+
+def add_total_goals(dataf): 
+    return dataf.assign(
+        lambda d: d['home_team_goals'] + d['away_team_goals']
+    )
+
+def scale_dataset(dataf, features): 
+    X = scaler.fit_transform(dataf[features])
+    return pd.DataFrame(X, index = dataf.index, columns = features)</code></pre>
+<p>And then simply call pipe to chain the functions:</p>
+<pre class="{python}"><code>data_scaled = (df.pipe(fix_dtypes, type_schema = type_schema)
+                 .pipe(add_total_goals)
+                 .pipe(scale_dataset, features = feature_list)
+)</code></pre>
+<p>This can bring a very nice touch to our code for a few reasons:</p>
+<ul>
+<li>Readability: It’s a lot easier to understand and also organize the code. By creating functions for each step, you will probabily spend a bit more time trying to make it nicer and reproducible, rather than just creating a lot of different dataframes for every tiny change you want to make.</li>
+<li>Practical: If you’re running different tests, you can simply comment/uncomment a line and all the other transformations that you need will still be there.</li>
+<li>Clean code: If you have common steps for several notebooks, you can add the functions to a python file and then import them to the notebook. The code will be a lot cleaner and the notebook will have only the analysis/plots/modeling/etc. In my experience, <code>pipe</code> is specially useful when building the preprocessing steps for a Machine Learning model.</li>
+</ul>
+<p>Now that we have all that in mind, let’s try to answer this question to put everything we learned together:</p>
+<ul>
+<li>On average, a team that won the World Cup scores how many more goals than other teams?</li>
+</ul>
+<p>Before anything, let’s take a look at our data again:</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">datetime</th>
+<th data-quarto-table-cell-role="th">stage</th>
+<th data-quarto-table-cell-role="th">stadium</th>
+<th data-quarto-table-cell-role="th">city</th>
+<th data-quarto-table-cell-role="th">home_team_name</th>
+<th data-quarto-table-cell-role="th">home_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_name</th>
+<th data-quarto-table-cell-role="th">win_conditions</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">half-time_away_goals</th>
+<th data-quarto-table-cell-role="th">referee</th>
+<th data-quarto-table-cell-role="th">assistant_1</th>
+<th data-quarto-table-cell-role="th">assistant_2</th>
+<th data-quarto-table-cell-role="th">roundid</th>
+<th data-quarto-table-cell-role="th">matchid</th>
+<th data-quarto-table-cell-role="th">home_team_initials</th>
+<th data-quarto-table-cell-role="th">away_team_initials</th>
+<th data-quarto-table-cell-role="th">bins_attendance</th>
+<th data-quarto-table-cell-role="th">total_goals</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1930</td>
+<td>13 Jul 1930 - 15:00</td>
+<td>Group 1</td>
+<td>Pocitos</td>
+<td>Montevideo</td>
+<td>France</td>
+<td>4.0</td>
+<td>1.0</td>
+<td>Mexico</td>
+<td></td>
+<td>...</td>
+<td>0.0</td>
+<td>LOMBARDI Domingo (URU)</td>
+<td>CRISTOPHE Henry (BEL)</td>
+<td>REGO Gilberto (BRA)</td>
+<td>201.0</td>
+<td>1096.0</td>
+<td>FRA</td>
+<td>MEX</td>
+<td>p0</td>
+<td>5.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1930</td>
+<td>13 Jul 1930 - 15:00</td>
+<td>Group 4</td>
+<td>Parque Central</td>
+<td>Montevideo</td>
+<td>USA</td>
+<td>3.0</td>
+<td>0.0</td>
+<td>Belgium</td>
+<td></td>
+<td>...</td>
+<td>0.0</td>
+<td>MACIAS Jose (ARG)</td>
+<td>MATEUCCI Francisco (URU)</td>
+<td>WARNKEN Alberto (CHI)</td>
+<td>201.0</td>
+<td>1090.0</td>
+<td>USA</td>
+<td>BEL</td>
+<td>p10</td>
+<td>3.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1930</td>
+<td>14 Jul 1930 - 12:45</td>
+<td>Group 2</td>
+<td>Parque Central</td>
+<td>Montevideo</td>
+<td>Yugoslavia</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>Brazil</td>
+<td></td>
+<td>...</td>
+<td>0.0</td>
+<td>TEJADA Anibal (URU)</td>
+<td>VALLARINO Ricardo (URU)</td>
+<td>BALWAY Thomas (FRA)</td>
+<td>201.0</td>
+<td>1093.0</td>
+<td>YUG</td>
+<td>BRA</td>
+<td>p10</td>
+<td>3.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1930</td>
+<td>14 Jul 1930 - 14:50</td>
+<td>Group 3</td>
+<td>Pocitos</td>
+<td>Montevideo</td>
+<td>Romania</td>
+<td>3.0</td>
+<td>1.0</td>
+<td>Peru</td>
+<td></td>
+<td>...</td>
+<td>0.0</td>
+<td>WARNKEN Alberto (CHI)</td>
+<td>LANGENUS Jean (BEL)</td>
+<td>MATEUCCI Francisco (URU)</td>
+<td>201.0</td>
+<td>1098.0</td>
+<td>ROU</td>
+<td>PER</td>
+<td>p0</td>
+<td>4.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1930</td>
+<td>15 Jul 1930 - 16:00</td>
+<td>Group 1</td>
+<td>Parque Central</td>
+<td>Montevideo</td>
+<td>Argentina</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>France</td>
+<td></td>
+<td>...</td>
+<td>0.0</td>
+<td>REGO Gilberto (BRA)</td>
+<td>SAUCEDO Ulises (BOL)</td>
+<td>RADULESCU Constantin (ROU)</td>
+<td>201.0</td>
+<td>1085.0</td>
+<td>ARG</td>
+<td>FRA</td>
+<td>p10</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 22 columns</p>
+</div>
+</div>
+</div>
+<p>One way to go about this, is to create a dataframe that contains how many goals each team scored in the world cup, add a column <code>is_world_cup_winner</code> and then compare the winners with the others.</p>
+<p>To identify the winners, we can check who won the final match by comparing the number of goals, but the problem with the dataset is that when the final was decided on the penalties, the winner will be on the description <code>win_conditions</code>:</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df.query(<span class="st">'year == 2006 &amp; stage == "Final"'</span>)[[<span class="st">'home_team_name'</span>,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">'home_team_goals'</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">'away_team_goals'</span>, </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">'away_team_name'</span>, </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">'win_conditions'</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                                             ]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">home_team_name</th>
+<th data-quarto-table-cell-role="th">home_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_goals</th>
+<th data-quarto-table-cell-role="th">away_team_name</th>
+<th data-quarto-table-cell-role="th">win_conditions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">707</td>
+<td>Italy</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>France</td>
+<td>Italy win on penalties (5 - 3)</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>So, we will also have to correct for that.</p>
+<p>Here is the pipeline we will build: - <code>start_pipe</code>: just start by copying the dataframe since the <code>pipe</code> method modifies the original df - <code>total_goals_by_year</code>: create a df with how many goals each country scored each year - <code>world_cup_winners</code>: query the countries that were in the “Final” stage in each year and select the country with more goals. Then, apply <code>correct_winners</code> to correct the winner country when the World Cup was decided on the penalties:</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> start_pipe(dataf): </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dataf.copy()</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> total_goals_by_year(dataf):</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    away_team_goals <span class="op">=</span> (dataf.groupby([<span class="st">'year'</span>, <span class="st">'away_team_name'</span>])</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                        [<span class="st">'away_team_goals'</span>]</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                        .<span class="bu">sum</span>()</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                        .to_frame()</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    home_team_goals <span class="op">=</span> (dataf.groupby([<span class="st">'year'</span>, <span class="st">'home_team_name'</span>])</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>                        [<span class="st">'home_team_goals'</span>]</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>                        .<span class="bu">sum</span>()</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>                        .to_frame()</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (pd.concat([away_team_goals,</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>                       home_team_goals], axis <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>                ).fillna(<span class="dv">0</span>)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>                .assign(total_goals <span class="op">=</span> <span class="kw">lambda</span> d: d[<span class="st">'away_team_goals'</span>] <span class="op">+</span> d[<span class="st">'home_team_goals'</span>])</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>            )[[<span class="st">'total_goals'</span>]]</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> world_cup_winners(dataf): </span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> (dataf.query(<span class="st">'stage == "Final"'</span>)</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>                .assign(winner_team <span class="op">=</span> <span class="kw">lambda</span> d: d.<span class="bu">apply</span>(</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>                                    <span class="kw">lambda</span> x: x[<span class="st">'home_team_name'</span>] <span class="cf">if</span> x[<span class="st">'home_team_goals'</span>] <span class="op">&gt;</span> x[<span class="st">'away_team_goals'</span>] <span class="cf">else</span> x[<span class="st">'away_team_name'</span>], axis <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>                                )</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>                        )</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> correct_winners(description): </span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>    match <span class="op">=</span> re.search(<span class="vs">r'\b(\w+)\s+win\b'</span>, description)</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> match <span class="op">!=</span> <span class="va">None</span>: </span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> match.group(<span class="dv">1</span>)</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: </span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">''</span></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> wc_winners_corrected(dataf): </span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (dataf.assign(teams_corrected <span class="op">=</span> <span class="kw">lambda</span> d: d.win_conditions.<span class="bu">apply</span>(correct_winners), </span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>                         winner_team_corrected <span class="op">=</span> <span class="kw">lambda</span> d: d.<span class="bu">apply</span>(</span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>                            <span class="kw">lambda</span> x: x[<span class="st">'winner_team'</span>] <span class="cf">if</span> x[<span class="st">'teams_corrected'</span>] <span class="op">==</span> <span class="st">''</span> <span class="cf">else</span> x[<span class="st">'teams_corrected'</span>], axis <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>                        )</span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>                    ).reset_index(drop <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>    )[[<span class="st">'year'</span>, <span class="st">'winner_team'</span>, <span class="st">'teams_corrected'</span>, <span class="st">'winner_team_corrected'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>winners <span class="op">=</span> (df.pipe(start_pipe)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>            .pipe(world_cup_winners)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>            .pipe(wc_winners_corrected)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>         )</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>winners.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">winner_team</th>
+<th data-quarto-table-cell-role="th">teams_corrected</th>
+<th data-quarto-table-cell-role="th">winner_team_corrected</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>1998</td>
+<td>France</td>
+<td></td>
+<td>France</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>2002</td>
+<td>Brazil</td>
+<td></td>
+<td>Brazil</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>2006</td>
+<td>France</td>
+<td>Italy</td>
+<td>Italy</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>2010</td>
+<td>Spain</td>
+<td>Spain</td>
+<td>Spain</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>2014</td>
+<td>Germany</td>
+<td>Germany</td>
+<td>Germany</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>country_goals_by_year <span class="op">=</span> (df.pipe(start_pipe)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                           .pipe(total_goals_by_year))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>country_goals_by_year.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">total_goals</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="5" data-quarto-table-cell-role="th" data-valign="top">1998</td>
+<td data-quarto-table-cell-role="th">Brazil</td>
+<td>14.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Germany</td>
+<td>8.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Italy</td>
+<td>8.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Romania</td>
+<td>4.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Spain</td>
+<td>8.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Finally, we can merge the datasets so we have how many goals were scored by each winner team:</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>winners_goals <span class="op">=</span> (   <span class="co"># merge winner's information with total goals by each country on that year</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                    pd.merge(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                        winners[[<span class="st">'year'</span>, <span class="st">'winner_team_corrected'</span>]],</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                        (country_goals_by_year.reset_index()</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                            .rename(columns <span class="op">=</span> {<span class="st">'level_1'</span>:<span class="st">'team_name'</span>})</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                        ),                     </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>                        on <span class="op">=</span> <span class="st">'year'</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># assign a flag to world cup winners based on winners df </span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>                    .assign(is_world_cup_winner <span class="op">=</span> <span class="kw">lambda</span> d: (d[<span class="st">'team_name'</span>] <span class="op">==</span> d[<span class="st">'winner_team_corrected'</span>]).astype(<span class="st">'int'</span>))</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># keep relevant columns</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>                    [[<span class="st">'year'</span>, <span class="st">'team_name'</span>, <span class="st">'total_goals'</span>, <span class="st">'is_world_cup_winner'</span>]]</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>winners_goals.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">team_name</th>
+<th data-quarto-table-cell-role="th">total_goals</th>
+<th data-quarto-table-cell-role="th">is_world_cup_winner</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1930</td>
+<td>Argentina</td>
+<td>18.0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1930</td>
+<td>Belgium</td>
+<td>0.0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1930</td>
+<td>Bolivia</td>
+<td>0.0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1930</td>
+<td>Brazil</td>
+<td>5.0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1930</td>
+<td>Chile</td>
+<td>5.0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Now, we can simply calculate the mean total goals by a team when they have won the World Cup:</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>avg_goals <span class="op">=</span> (winners_goals</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                .groupby(<span class="st">'is_world_cup_winner'</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                [[<span class="st">'total_goals'</span>]]</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                .mean().T</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>avg_goals</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">is_world_cup_winner</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">total_goals</td>
+<td>5.103797</td>
+<td>14.315789</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>avg_diff_goals <span class="op">=</span> (avg_goals[<span class="dv">1</span>] <span class="op">-</span> avg_goals[<span class="dv">0</span>]).iloc[<span class="dv">0</span>].<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'On average, a team that won the World Cup scores </span><span class="sc">{</span>avg_diff_goals<span class="sc">}</span><span class="ss"> more goals than other teams'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>On average, a team that won the World Cup scores 9.21 more goals than other teams</code></pre>
+</div>
+</div>
+</section>
+<section id="final-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h2>
+<p>Pandas is for sure one of the most important libraries I work with everyday, and still I keep finding new ways to use it. There are a dozen other topics we didn’t cover here, but I just wanted to do a general overview on some of the very important things I learned with the library and that really help me on a daily basis.</p>
+<p>If you are looking for more resources, a lot of the ideas here come from the very good <a href="https://tomaugspurger.net/posts/modern-1-intro/">Modern Pandas</a> writing series by Tom Augspurger. For portuguese speakers, I also have a <a href="https://medium.com/turing-talks/manipula%C3%A7%C3%A3o-de-s%C3%A9ries-temporais-com-pandas-db4ee39a0c1b">post on my Medium page</a> about pandas for Time Series analysis.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
