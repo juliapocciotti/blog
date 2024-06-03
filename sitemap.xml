@@ -2,26 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://juliapocciotti.github.io/blog/about.html</loc>
-    <lastmod>2024-01-25T20:47:33.398Z</lastmod>
+    <lastmod>2024-06-03T00:51:21.963Z</lastmod>
   </url>
   <url>
     <loc>https://juliapocciotti.github.io/blog/course-notes/index.html</loc>
-    <lastmod>2024-01-25T20:47:32.822Z</lastmod>
+    <lastmod>2024-06-03T00:51:21.346Z</lastmod>
   </url>
   <url>
     <loc>https://juliapocciotti.github.io/blog/posts/everyday-pandas/everyday_pandas.html</loc>
-    <lastmod>2024-01-25T20:47:32.276Z</lastmod>
+    <lastmod>2024-06-03T00:51:20.775Z</lastmod>
+  </url>
+  <url>
+    <loc>https://juliapocciotti.github.io/blog/posts/hillstrom-challenge/meta_models.html</loc>
+    <lastmod>2024-06-03T00:51:16.873Z</lastmod>
   </url>
   <url>
     <loc>https://juliapocciotti.github.io/blog/posts/probability-calibration/prob_calibration.html</loc>
-    <lastmod>2024-01-25T20:47:29.661Z</lastmod>
+    <lastmod>2024-06-03T00:51:18.116Z</lastmod>
   </url>
   <url>
     <loc>https://juliapocciotti.github.io/blog/course-notes/econometrics-ml/first-lecture/index.html</loc>
-    <lastmod>2024-01-25T20:47:32.522Z</lastmod>
+    <lastmod>2024-06-03T00:51:21.048Z</lastmod>
   </url>
   <url>
     <loc>https://juliapocciotti.github.io/blog/index.html</loc>
-    <lastmod>2024-01-25T20:47:33.137Z</lastmod>
+    <lastmod>2024-06-03T00:51:21.690Z</lastmod>
   </url>
 </urlset>

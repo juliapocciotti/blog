@@ -2223,12 +2223,12 @@ def scale_dataset(dataf, features):
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="18">
+<div class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>country_goals_by_year <span class="op">=</span> (df.pipe(start_pipe)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                           .pipe(total_goals_by_year))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                           .pipe(total_goals_by_year)).sort_index()</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>country_goals_by_year.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="24">
 <div>
 
 
@@ -2247,25 +2247,25 @@ def scale_dataset(dataf, features):
 </thead>
 <tbody>
 <tr class="odd">
-<td rowspan="5" data-quarto-table-cell-role="th" data-valign="top">1998</td>
-<td data-quarto-table-cell-role="th">Brazil</td>
-<td>14.0</td>
+<td rowspan="5" data-quarto-table-cell-role="th" data-valign="top">2014</td>
+<td data-quarto-table-cell-role="th">Spain</td>
+<td>4.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Germany</td>
-<td>8.0</td>
+<td data-quarto-table-cell-role="th">Switzerland</td>
+<td>7.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Italy</td>
-<td>8.0</td>
+<td data-quarto-table-cell-role="th">USA</td>
+<td>5.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Romania</td>
+<td data-quarto-table-cell-role="th">Uruguay</td>
 <td>4.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Spain</td>
-<td>8.0</td>
+<td data-quarto-table-cell-role="th">rn"&gt;Bosnia and Herzegovina</td>
+<td>4.0</td>
 </tr>
 </tbody>
 </table>
