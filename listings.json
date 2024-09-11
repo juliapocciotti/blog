@@ -8,7 +8,6 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/hillstrom-challenge/meta_models.html",
       "/posts/everyday-pandas/everyday_pandas.html",
       "/posts/probability-calibration/prob_calibration.html"
     ]
